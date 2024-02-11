@@ -74,7 +74,7 @@ def evaluate_prompt(config):
     match_counter = 0
     
     df = pd.read_csv('../../Data/CombinedReviews/comprehensive_combined_annotations.csv')
-    df = df.head(50)
+    #df = df.head(50)
     results = pd.DataFrame(columns=['review_id', 'word_count', 'score', 'score_time', 'majority'])
     
     for index, row in df.iterrows():
@@ -106,5 +106,5 @@ def evaluate_prompt(config):
     torch.cuda.empty_cache()
 ########################################################################
     
-config = Config(prompts.zephyr_p1, 'stabilityai/stablelm-zephyr-3b', load_8bit=True)
+config = Config(prompts.zephyr_p1, 'stabilityai/stablelm-zephyr-3b')
 evaluate_prompt(config)
