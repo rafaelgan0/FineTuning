@@ -21,17 +21,17 @@ class ModelLoader:
         if self.load_8bit:
             print(f"Loading {self.model_id} in 8bit...")
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, trust_remote_code=True)
-            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, load_in_8bit=True, trust_remote_code=True)
+            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, load_in_8bit=True, trust_remote_code=True, device_map = 'auto')
             print("Finished Loading.")
         elif self.load_16bit:
             print(f"Loading {self.model_id} in 16bit...")
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, trust_remote_code=True)
-            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, torch_dtype=torch.float16, trust_remote_code=True).to(0)
+            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, torch_dtype=torch.float16, trust_remote_code=True, device_map = 'auto')
             print("Finished Loading.")
         else:
             print(f"Loading {self.model_id}...")
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, trust_remote_code=True)
-            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, trust_remote_code=True).to(0)
+            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, trust_remote_code=True, device_map = 'auto')
             print("Finished Loading.")
 
     def generate_output(self, max_new_tokens, inputStr):
@@ -39,12 +39,12 @@ class ModelLoader:
             print("Model not loaded.")
             return
         
-        encoded_input = self.tokenizer.encode(inputStr, return_tensors='pt').to(0)
+        encoded_input = self.tokenizer.encode(inputStr, return_tensors='pt').to("cuda")
         output = self.model.generate(encoded_input, max_new_tokens=max_new_tokens, num_return_sequences=1, no_repeat_ngram_size=2, do_sample=False, pad_token_id=self.tokenizer.eos_token_id)
         new_output = output[0, encoded_input.shape[1]:]
         outputStr = self.tokenizer.decode(new_output, skip_special_tokens=True)
         return outputStr
-
+    
 # Config Class
 # Load in 8bit: config = Config(prompts.mistral_p1, "mistralai/Mistral-7B-Instruct-v0.1", load_8bit=True)
 # Load in 16bit: config = Config(prompts.mistral_p1, "mistralai/Mistral-7B-Instruct-v0.1", load_16bit = True)
@@ -73,7 +73,8 @@ def evaluate_prompt(config):
     model_loader.load_model()
     match_counter = 0
     
-    df = pd.read_csv('comprehensive_combined_annotations.csv')       
+    df = pd.read_csv('../../Data/CombinedReviews/comprehensive_combined_annotations.csv')
+    df = df.head(50)
     results = pd.DataFrame(columns=['review_id', 'word_count', 'score', 'score_time', 'majority'])
     
     for index, row in df.iterrows():
@@ -86,7 +87,7 @@ def evaluate_prompt(config):
             start_time = time.time()
             score = score_review(model_loader, review, config)
             end_time = time.time()
-            
+            print(score)
             word_count = len(review.split())
             score_time = end_time - start_time
             
