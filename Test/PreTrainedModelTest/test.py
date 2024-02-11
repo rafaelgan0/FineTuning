@@ -106,5 +106,5 @@ def evaluate_prompt(config):
     torch.cuda.empty_cache()
 ########################################################################
     
-config = Config(prompts.mistral_p1, "mistralai/Mistral-7B-Instruct-v0.1", load_8bit=True)
+config = Config(prompts.zephyr_p1, 'stabilityai/stablelm-zephyr-3b', load_8bit=True)
 evaluate_prompt(config)
