@@ -2,13 +2,9 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import pandas as pd
 import prompts
 import torch
+import torch.nn as nn
 import time
 
-########################################################################
-# ModelLoader Class
-# Load in 8bit: model_loader = ModelLoader("gpt2", load_8bit=True)
-# Load in 16bit: model_loader = ModelLoader("gpt2", load_16bit=True)
-# Load in 32bit: model_loader = ModelLoader("gpt2")
 class ModelLoader:
     def __init__(self, model_id, load_8bit=False, load_16bit=False):
         self.model_id = model_id
@@ -32,13 +28,12 @@ class ModelLoader:
             print(f"Loading {self.model_id}...")
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, trust_remote_code=True)
             self.model = AutoModelForCausalLM.from_pretrained(self.model_id, trust_remote_code=True).to("cuda")
+            if torch.cuda.device_count() > 1:
+                self.model = nn.DataParallel(self.model)
             print("Finished Loading.")
-            
-        if torch.cuda.device_count() > 1:
-            self.model = nn.DataParallel(self.model)
 
     def generate_output(self, max_new_tokens, inputStr):
-        if self.model == None:
+        if self.model is None:
             print("Model not loaded.")
             return
         
@@ -47,28 +42,23 @@ class ModelLoader:
         new_output = output[0, encoded_input.shape[1]:]
         outputStr = self.tokenizer.decode(new_output, skip_special_tokens=True)
         return outputStr
-    
-# Config Class
-# Load in 8bit: config = Config(prompts.mistral_p1, "mistralai/Mistral-7B-Instruct-v0.1", load_8bit=True)
-# Load in 16bit: config = Config(prompts.mistral_p1, "mistralai/Mistral-7B-Instruct-v0.1", load_16bit = True)
-# Load in 32bit: config = Config(prompts.mistral_p1, "mistralai/Mistral-7B-Instruct-v0.1")
+
 class Config:
     def __init__(self, prompt_func, model_name, load_8bit=False, load_16bit=False):
         self.model_name = model_name
         self.load_8bit = load_8bit
         self.load_16bit = load_16bit
         self.prompt_func = prompt_func
-########################################################################
-# functions
+
 def score_review(model_loader, review, config):
     prompt = config.prompt_func(review)
     score = model_loader.generate_output(2, prompt)
     if 'v' in score.lower():
-      score = '2' 
+        score = '2' 
     elif 'j' in score.lower():
-      score = '0'
+        score = '0'
     elif 'w' in score.lower():
-      score = '1'
+        score = '1'
     return score
 
 def evaluate_prompt(config, model_loader, input_file, output_file):
@@ -106,8 +96,7 @@ def evaluate_prompt(config, model_loader, input_file, output_file):
     print(f"Match Percentage: {match_percentage}%")
     results.to_csv(f'{output_file}', index=False)
     torch.cuda.empty_cache()
-########################################################################
-    
+
 config = Config(prompts.mistral_p1, "mistralai/Mistral-7B-Instruct-v0.2")
 model_loader = ModelLoader(config.model_name, load_8bit=config.load_8bit, load_16bit=config.load_16bit)
 model_loader.load_model()
