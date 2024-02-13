@@ -14,23 +14,22 @@ class ModelLoader:
         self.tokenizer = None
 
     def load_model(self):
-        device_map = {0: [0], 1: [1], 2: [2], 3: [3]}
         if self.load_8bit:
             print(f"Loading {self.model_id} in 8bit...")
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, trust_remote_code=True)
-            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, load_in_8bit=True, trust_remote_code=True, device_map=device_map)
+            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, load_in_8bit=True, trust_remote_code=True, device_map="auto").to("cuda")
             print("Finished Loading.")
         elif self.load_16bit:
             print(f"Loading {self.model_id} in 16bit...")
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, trust_remote_code=True)
-            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, torch_dtype=torch.float16, trust_remote_code=True, device_map=device_map)
-            self.model.to("cuda")
+            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, torch_dtype=torch.float16, trust_remote_code=True, device_map="auto").to("cuda")
             print("Finished Loading.")
         else:
             print(f"Loading {self.model_id}...")
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, trust_remote_code=True)
-            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, trust_remote_code=True, device_map=device_map)
-            self.model.to("cuda")
+            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, trust_remote_code=True, device_map="auto").to("cuda")
+            if torch.cuda.device_count() > 1:
+                self.model = nn.DataParallel(self.model)
             print("Finished Loading.")
 
     def generate_output(self, max_new_tokens, inputStr):
