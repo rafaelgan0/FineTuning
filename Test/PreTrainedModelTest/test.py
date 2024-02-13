@@ -27,7 +27,7 @@ class ModelLoader:
         else:
             print(f"Loading {self.model_id}...")
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, trust_remote_code=True)
-            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, trust_remote_code=True)
+            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, trust_remote_code=True, device_map="auto")
             print("Finished Loading.")
 
     def generate_output(self, max_new_tokens, inputStr):
