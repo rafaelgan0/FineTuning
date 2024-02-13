@@ -63,7 +63,7 @@ def evaluate_prompt(config, model_loader, input_file, output_file):
     match_counter = 0
 
     df = pd.read_csv(input_file)
-    df = df.head(1)
+    df = df.head(10)
     results = pd.DataFrame(columns=['review_id', 'word_count', 'score', 'score_time', 'majority'])
 
     for index, row in df.iterrows():
