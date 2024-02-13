@@ -35,7 +35,7 @@ class ModelLoader:
             print("Model not loaded.")
             return
         
-        encoded_input = self.tokenizer.encode(inputStr, return_tensors='pt').to("cuda")
+        encoded_input = self.tokenizer.encode(inputStr, return_tensors='pt')
         output = self.model.generate(encoded_input, max_new_tokens=max_new_tokens, num_return_sequences=1, no_repeat_ngram_size=2, do_sample=False, pad_token_id=self.tokenizer.eos_token_id)
         new_output = output[0, encoded_input.shape[1]:]
         outputStr = self.tokenizer.decode(new_output, skip_special_tokens=True)
