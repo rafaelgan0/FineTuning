@@ -98,7 +98,7 @@ def evaluate_prompt(config, model_loader, input_file, output_file):
 num_gpus = torch.cuda.device_count()
 print(f"Number of GPUs: {num_gpus}")
 
-config = Config(prompts.mistral_p1, "mistralai/Mistral-7B-Instruct-v0.2")
+config = Config(prompts.mistral_p1, "mistralai/Mistral-7B-Instruct-v0.2", load_16bit=True)
 model_loader = ModelLoader(config.model_name, load_8bit=config.load_8bit, load_16bit=config.load_16bit)
 model_loader.load_model()
 
