@@ -24,7 +24,7 @@ class ModelLoader:
             print(f"Loading {self.model_id} in 16bit...")
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, trust_remote_code=True)
             self.model = AutoModelForCausalLM.from_pretrained(self.model_id, trust_remote_code=True)
-            parallelize(self.model, num_gpus=3, fp16=True, verbose='detail')
+            parallelize(self.model, num_gpus=4, fp16=True, verbose='detail')
             print("Finished Loading.")
         else:
             print(f"Loading {self.model_id}...")
@@ -103,5 +103,8 @@ print(f"Number of GPUs: {num_gpus}")
 config = Config(prompts.mistral_p1, "mistralai/Mistral-7B-Instruct-v0.2", load_16bit=True)
 model_loader = ModelLoader(config.model_name, load_8bit=config.load_8bit, load_16bit=config.load_16bit)
 model_loader.load_model()
+print(model_loader.model.memory_allocated())
+print(model_loader.model.memory_reserved())
+print(model_loader.model.memory_chached())
 
-evaluate_prompt(config, model_loader, "../../Data/CombinedReviews/comprehensive_combined_annotations.csv", "test_output.csv")
+#evaluate_prompt(config, model_loader, "../../Data/CombinedReviews/comprehensive_combined_annotations.csv", "test_output.csv")
