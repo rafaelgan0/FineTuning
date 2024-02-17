@@ -107,8 +107,4 @@ print(model_loader.model.memory_allocated())
 print(model_loader.model.memory_reserved())
 print(model_loader.model.memory_chached())
 
-<<<<<<< HEAD
 evaluate_prompt(config, model_loader, "/home/rgan2/FineTuning/FineTuning/Data/CombinedReviews/comprehensive_combined_annotations.csv", "test_output.csv")
-=======
-#evaluate_prompt(config, model_loader, "../../Data/CombinedReviews/comprehensive_combined_annotations.csv", "test_output.csv")
->>>>>>> 021e694cb92309d393473dac8d423ab1ffe3ce44
