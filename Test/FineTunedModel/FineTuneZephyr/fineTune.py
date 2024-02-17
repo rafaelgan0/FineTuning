@@ -3,6 +3,7 @@ import torch
 import sys
 import jsonlines
 from transformers import AutoTokenizer, AutoModelForCausalLM, Trainer, TrainingArguments
+from accelerate import Accelerator
 
 print("PyTorch version:", torch.__version__)
 print("CUDA available:", torch.cuda.is_available())
@@ -10,7 +11,7 @@ print("CUDA version:", torch.version.cuda)
 print("CUDNN version:", torch.backends.cudnn.version())
 
 # Load data from JSONLines file
-data_path = '../../../Data/IndividualReviews/firstTrainingSet.jsonl'
+data_path = "/home/rgan2/FineTuning/FineTuning/Data/IndividualReviews/firstTrainingSet.jsonl"
 
 reviews = []
 ratings = []
@@ -42,14 +43,17 @@ class CustomDataset(torch.utils.data.Dataset):
             'attention_mask': encoding['attention_mask'].flatten(),
             'labels': torch.tensor(rating, dtype=torch.long)
         }
+accelerator = Accelerator()
+device = accelerator.device
 
 # Initialize tokenizer and model
 tokenizer = AutoTokenizer.from_pretrained("stabilityai/stablelm-zephyr-3b")
-model = AutoModelForCausalLM.from_pretrained("stabilityai/stablelm-zephyr-3b", num_labels=5, trust_remote_code=True)
-
+model = AutoModelForCausalLM.from_pretrained("stabilityai/stablelm-zephyr-3b", num_labels=5, trust_remote_code=True).to(device)
+optimizer = torch.optim.Adam(model.parameters())
 # Prepare dataset
 train_dataset = CustomDataset(reviews, ratings, tokenizer, max_length=2048)
-
+optimizer = torch.optim.Adam(model.parameters())
+model, optimizer, data = accelerator.prepare(model, optimizer, train_dataset)
 # Define training arguments
 training_args = TrainingArguments(
     output_dir='./results',          
