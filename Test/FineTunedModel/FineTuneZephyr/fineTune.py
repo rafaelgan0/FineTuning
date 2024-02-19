@@ -43,17 +43,25 @@ class CustomDataset(torch.utils.data.Dataset):
             'attention_mask': encoding['attention_mask'].flatten(),
             'labels': torch.tensor(rating, dtype=torch.long)
         }
+    
 accelerator = Accelerator()
 device = accelerator.device
 
+max_memory = {i: '7000MB' for i in range(torch.cuda.device_count())}
+max_memory[0] = '1000MB'
+print(max_memory)
 # Initialize tokenizer and model
 tokenizer = AutoTokenizer.from_pretrained("stabilityai/stablelm-zephyr-3b")
-model = AutoModelForCausalLM.from_pretrained("stabilityai/stablelm-zephyr-3b", num_labels=5, trust_remote_code=True).to(device)
+model = AutoModelForCausalLM.from_pretrained("stabilityai/stablelm-zephyr-3b", device_map="auto", max_memory=max_memory, num_labels=5, trust_remote_code=True)
+# model = torch.nn.DataParallel(model, device_ids=(0,) ).cuda()
 optimizer = torch.optim.Adam(model.parameters())
 # Prepare dataset
+
 train_dataset = CustomDataset(reviews, ratings, tokenizer, max_length=2048)
 optimizer = torch.optim.Adam(model.parameters())
+
 model, optimizer, data = accelerator.prepare(model, optimizer, train_dataset)
+
 # Define training arguments
 training_args = TrainingArguments(
     output_dir='./results',          
