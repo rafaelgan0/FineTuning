@@ -18,7 +18,7 @@ class ModelLoader:
         if self.load_8bit:
             print(f"Loading {self.model_id} in 8bit...")
             self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, trust_remote_code=True)
-            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, load_in_8bit=True, trust_remote_code=True, device_map="auto")
+            self.model = AutoModelForCausalLM.from_pretrained(self.model_id, load_in_8bit=True, trust_remote_code=True)
             print("Finished Loading.")
         elif self.load_16bit:
             print(f"Loading {self.model_id} in 16bit...")
