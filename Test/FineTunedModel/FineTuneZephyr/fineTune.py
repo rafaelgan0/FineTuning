@@ -53,7 +53,7 @@ print(max_memory)
 # Initialize tokenizer and model
 tokenizer = AutoTokenizer.from_pretrained("stabilityai/stablelm-zephyr-3b")
 model = AutoModelForCausalLM.from_pretrained("stabilityai/stablelm-zephyr-3b", device_map="auto", max_memory=max_memory, num_labels=5, trust_remote_code=True)
-# model = torch.nn.DataParallel(model, device_ids=(0,) ).cuda()
+model = torch.nn.DataParallel(model, device_ids=(0,) ).cuda()
 optimizer = torch.optim.Adam(model.parameters())
 # Prepare dataset
 
