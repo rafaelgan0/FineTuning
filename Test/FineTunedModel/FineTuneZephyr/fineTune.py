@@ -4,6 +4,8 @@ import sys
 import jsonlines
 from transformers import AutoTokenizer, AutoModelForCausalLM, Trainer, TrainingArguments
 from accelerate import Accelerator
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3"
 
 print("PyTorch version:", torch.__version__)
 print("CUDA available:", torch.cuda.is_available())
@@ -52,15 +54,16 @@ max_memory[0] = '1000MB'
 print(max_memory)
 # Initialize tokenizer and model
 tokenizer = AutoTokenizer.from_pretrained("stabilityai/stablelm-zephyr-3b")
-model = AutoModelForCausalLM.from_pretrained("stabilityai/stablelm-zephyr-3b", device_map="auto", max_memory=max_memory, num_labels=5, trust_remote_code=True)
-model = torch.nn.DataParallel(model, device_ids=(0,) ).cuda()
-optimizer = torch.optim.Adam(model.parameters())
+# model = AutoModelForCausalLM.from_pretrained("stabilityai/stablelm-zephyr-3b", device_map="auto", max_memory=max_memory, num_labels=5, trust_remote_code=True)
+model = AutoModelForCausalLM.from_pretrained("stabilityai/stablelm-zephyr-3b", device_map="auto", trust_remote_code=True)
+# model = torch.nn.DataParallel(model, device_ids=(0,) ).cuda()
+# optimizer = torch.optim.Adam(model.parameters())
 # Prepare dataset
 
 train_dataset = CustomDataset(reviews, ratings, tokenizer, max_length=2048)
 optimizer = torch.optim.Adam(model.parameters())
 
-model, optimizer, data = accelerator.prepare(model, optimizer, train_dataset)
+# model, optimizer, data = accelerator.prepare(model, optimizer, train_dataset)
 
 # Define training arguments
 training_args = TrainingArguments(

@@ -1,0 +1,982 @@
+input,output
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The paper studies the sample size (of observational and experimental data needed to estimate the probability of causation, given a specified confidence interval. The authors derive the number of 'adequate' sample sizes and evaluate their theoretical results empirically while estimating the PNS 
+
+$Pros$
+-  The paper proposes a theorem describing the margin errors for the bounds of PNS given a confidence interval. 
+-  The theoretical results are tested on a synthetical data, confirming that when the sample size reaches the predicated number the estimated bounds appear more stable. 
+-  The authors provide also a discussion on the relationship between the sample size of experimental and observational data on the average error of estimates, giving guidelines on when the largest drop in the error occurs and  thus what would be a recommended minimal size of the data. 
+
+$Cons$
+-  I would like the authors to comment on the impact of some design choices of the experiments on the obtained results, or the justification for the used models.  In particular, why the authors use only two models? Are those models meant to simulate some true data, or are purely synthetic (if, yes, how have they been generated - i.e. I can see the description in the appendix, but I am not sure what was the method for choosing the parameters of the distributions).  Similarly, why have the authors chosen to use 20 confounders? 
+
+In general I would also like to see how the work can be extended to real-world application and problems (something that authors mention in the Discussion, and which would be nice to see in the future). 
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The authors argue that there are some safe 'spots' in the data space that are less prone to adversarial attacks. The authors propose a technique to identify such 'safe spots'. They then leverage them for robust training and observe higher robust accuracy than baseline. Finally, they leverage this observation to identify out of distribution data. 
+
+The application is important and the results look promising. However, I have the following concern:
+
+- The authors propose a new threat model where the adversary may have access to the labeled data. They motivated such a setting with an example of Google image search. However, such a setting is quite limited. There are also existing methods that use supervised learning setting with incorrect labeling. The paper should discuss how they differ from such a line of work. 
+
+- The search algorithm requires that a correct predicted label is available. This setting is not quite realistic. How can we find a safe spot when the label is unknown.
+
+- Some of the findings are not quite surprising. For example, a safe spot is more in a robust model with small epsilon. 
+
+
+
+
+
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The paper proposes a novel method for weak-supervised learning where the relation between training targets and unknown labels is described by a symbolic domain constraint. In particular, the example the paper uses is to learn an MNIST classifier, via targets that are sums of MNIST digits. The proposed method essentially consist of 3 steps. First, a latent representation of the MNIST images is learned as an autoencoder in an unsupervised manner. Then, K-means (with K=#number of MNIST classes) is applied to the latent representation yielding K clusters. Then, for batches of images with known sums, the clusters are assigned an MNIST class each. The predicted class per image is then used to train a supervised CNN. The claim of the paper is that their step-wise method scales better in the constraint complexity at the expense of some final classification accuracy which is an interesting trade-off.  The reduction in combinatorial complexity is achieved via the learned latent representation.
+
+Minor comment: I enjoyed the insightful discussion part of the paper. It would still be interesting to report the final classification accuracy that is mentioned between lines 109-114, even it is not on par with the competitor. Further, I would be interested in a comment on the central assumption that clusters can indeed be assigned a label. For MNIST, the assumption might be approximately true, but for more complex datasets, it is unclear if the clusters learned in an unsupervised way will in any way relate to the ground truth classes. This is a generally known issue that seems to be quite relevant for the proposed method. "" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""
+
+Update: The authors addressed part of my concerns. For the factor estimation, the proposed method relies on first order approximations while learning the posterior of the factors; however, the approximation error does not enter into the posterior.  The approximation also raises concerns regarding the convergence of the algorithm. Overall, I think the approach is promising, but some justification of the quality of the approximation is needed. Thus, I tend to keep my rating.
+
+##############
+
+The authors propose a streaming approach to tensor factorization with Bayesian neural networks. The problem is to factorize a three-way tensor with Gaussian noise. The proposed approach combines a Bayesian neural network (BNN) whose output predicts the entries of the tensor and the streaming variational Bayes (SVB) for incremental posterior updates. In addition, a spike-and-slab prior is placed on the BNN weights to encourage sparsity as well as prevent overfitting.  The authors performed empirical studies on four real datasets, DBLP, Anime, ACC, and MovieLen1M, where improved prediction accuracy of the tensor entries are reported.
+
+From the empirical evaluation, the objective of the proposed approach is to ensure that the output of the BNN matches the tensor entries. However, this does not necessarily guarantee the correctness of the recovered factor matrices (input to the BNN). I feel that the problem setting of the paper is somehow different from the standard CP factorization setting where the (unique) factors are of primary interest. It would be good to add some discussions about the correctness and/or uniqueness of the uncovered factors.
+
+Strengths:
+- The idea of introducing a spike-and-slab prior in the factorization is interesting.
+- Using SVB for online posterior updates is computationally practical.
+
+Weaknesses:
+- The presentation could be improved — it is not very clear how the factor matrices are estimated.
+- Factorization using the proposed method is not unique (up to rescaling and permutation of the factor matrices). 
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper proposes to use the peaks and droughts in training with multiplicative cyclic learning rate schedules, to construct approximations to accuracy-training tradeoff curves. While this is an ad hoc approximation, it has the advantage to be done in one training pass. The idea sounds crazy to me, but the experiments are actually pretty encouraging in the sense that the approximations are pretty accurate. Hence, I vote to accept this paper."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The work experiments with a flat prior in functional space for multilabel classification, in a Deep Learning setting. The network f_theta predicts, given the input x, the concentration parameters alpha of a Dirichlet prior on the vector of class probabilities. After marginalizing over class probabilities this yields the standard softmax on label probabilities (up to reparametrization $\\alpha$ <-> $\\exp{\\eta}$). 
+The functional prior is built from the Dirichlet distribution with $\\alpha=1$; and evaluated on a measurement set in the data space that suitably accounts for in- and out-of-distribution points. 
+
+I think this abstract is suitable to be presented at MIDL.
+
+The approach is not necessarily very novel in practice, but the functional space perspective is still uncommon and interesting (including the soft-constraints induced by a prior that looks uninformative at first glance). Also, the functional viewpoint as a way to incorporate Bayesian priors in neural networks is a promising direction.
+
+There are a few typos that can be corrected. The choice of validation is suitable and reasonably executed given the format. The entropy/ies are mentioned at the very end but not reported? 
+
+There are a few claims that do not necessarily serve the argument:
+'uncertainty outputs, which can increase patient safety [...]' -> maybe not necessary to go there unless you have results? 
+'Our method is also significantly less computationally expensive as compared to Bayesian or frequentist approaches' -> At most it is orthogonal to being Bayesian or frequentist. The work is quite clearly using the Bayesian toolbox, including evidence lower bound computations (as per the title(!), it is an instance of variational inference)."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper presents a new method which can be combined with graph search algorithms to boost exploration when the uncertainty is high. This new mechanism, called TBV, can override actions given by the model to explore and verify model predictions. It is also shown in the experiments that TBV improves the model performance when combined with MCTS or BestFS. TBV utilizes graph structure of the problem and finds the solution much quicker for both MCTS and BestFS. 
+
+While the presented method is interesting with high performance, I found many editorial errors in the writing. For example, in the second paragraph of section 3.3, 'we concentrated of exploration.', and 'In our experiments, such a version proved to be effective in in discrete', just to name a few. There are so many errors like this and the paper needs serious rewriting. Also, having a conclusion or discussion can help the structure of the paper. 
+
+Figure 3 is unclear if the blue line is without TBV with the legend 'Right corridor visited'. It could be interesting to discuss extension of TBV into continuous environments. Reference format seems to have errors since there are underlines. "" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This blogpost elucidates the reader on MIDI-DDSP by Wu et al. (ICLR2022), and reads like a summarisation of the original paper. As a result, there doesn't appear to be any additional content or insights above and beyond this original work. For instance, almost all the figures are derived from the original paper, and I actually found the original blogpost from the ICLR2022 paper more informative, as it includes a worked example demonstrating the workflow of MIDI-DDSP with synthesised audio examples and audible comparisons with prior work.
+
+As a secondary note, there are also errors/typos in this blogpost. To list a few:
+*  'I has 3 separately trainable modules (DDSP Inference, Synthesis Generator, Expression Generator)' -> 'It has 3 separately trainable modules (DDSP Inference, Synthesis Generator, Expression Generator).'
+* 'As shown in below Figure 1(left) shows that strided convolution models...' -> 'As shown below in Figure 3 (left), strided convolution models...'
+* 'DDSP model overcomes above challenge and gain an advantage...' -> 'The DDSP model overcomes the aforementioned challenge, and gains an advantage...'
+* 'As Shown in above figure in left there is comparison of Mel spectrogram of synthesis results and on right it shows comparison of synthesis quality from listening test. From figure(right) it is seen that MIDI-DDSP inference is perceived as likely as ground truth compared to other methods such as MIDI2Params, Ableton and FluidSynth.' -> The figures are missing captions and labels entirely, and there were multiple figures here, so it was unclear what is being referred to. Moreover, there are issues with language and errors in capitalization.
+
+Subsequently, I don't think this fits the requirements for the ICLR blogpost track. If the authors had provided additional insights, such as an example based on learning from polyphonic examples, then I would be comfortable recommending this (assuming the formatting issues are addressed). However, in its current state I don't believe this is appropriate."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper provides a theoretical connection between active inference and reinforcement learning and develops a method that can find a prior preference from experts. The new theory is derived from the concept of expected free energy (EFE) based on the free-energy principle.  Simulation experiments were conducted, and the effect of the prior preference learning was demonstrated.
+
+The theoretical contribution of the paper is to find the relationship between EFE and negative value function and proposed a prior preference learning method. The theoretical connection is insightful and interesting. 
+
+However, the originality of the proposed method itself is not clear from the theoretical and practical viewpoints.
+In the experiment, they compared their method with a baseline method, i.e., global preference. 
+There is no comparison between the pre-existing baseline method.
+Though the EFE-based approach is very interesting, the authors did not succeed in providing evidence of the advantage of the proposed method.
+It is questionable if this experiment is suitable for evaluating the main argument of this paper.
+
+Also, from the viewpoint of the information-theoretic approach to RL and the relation to the free energy principle, studies related to 'control as inference' is worth mentioning.
+
+- Levine, Sergey. 'Reinforcement learning and control as probabilistic inference: Tutorial and review.' arXiv preprint arXiv:1805.00909 (2018).
+- Okada, Masashi, and Tadahiro Taniguchi. 'Variational inference mpc for bayesian model-based reinforcement learning.' Conference on Robot Learning. 2020.
+- Hafner, Danijar, et al. 'Action and perception as divergence minimization.' arXiv preprint arXiv:2009.01791 (2020).
+
+<Minor comments>
+
+Capitalized Q is used for representing a variational density function. Q is often used in action-value function in the context of RL. If this is not equivalent to Q-function, it cannot be very clear. I think using q is a better choice.
+
+In 5.1.1, 'We did not run setting 2 in this study, because Acrobat is ambiguous in defining the global
+preference of the environment.'
+-> This may be 'setting 4.'
+
+
+The definition of 'global preference' is not given. To my understanding, the term is not so well-known in the community of imitation and reinforcement learning. That should be defined. Because of this, what the experiment showed is unclear to potential readers.
+
+
+In conclusion, they describe, 'We also show that active inference can provide insights to solve the inverse RL problems.' However, they did not provide any explicit discussion over 'inverse RL.' This is actually the second time they mention 'inverse RL.' The first one is just at the end of the introduction.
+This should be explicitly mentioned if the authors put this statement in conclusion."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper proposes a consistency score (C-score) that measures the expected accuracy of a held-out instance averaged over different training sample sizes, which can be useful for analyzing learning dynamics and generalization performance.
+
+I see some problems with the proposed approach. First of all, the proposed metric is computationally very expensive since 2,000 models need to be trained for each s. Can't we simply use the learning speed of each test sample to achieve similar goals? Measuring learning speed should be computationally much simpler since it does not require training 2,000 models if we measure the learning speed for test or validation samples. Those test samples are automatically held out since they are not in the training dataset. In fact, authors show strong correlations between C-score and other measures based on learning speed in Fig. 9. Are there *real* benefits of using C-score over simpler alternatives such as measures based on learning speed, e.g., better outlier detection performance, better accuracy for detecting mis-labeled samples, better analysis of learning dynamics and generalization performance, etc.? If there's no such *real* benefit, then it's hard to justify the use of C-score considering its high computational cost.
+
+At s=70,80,90%, there will be a lot of overlap of samples among 2,000 subsets and I don't see much value in distinguishing such cases (70%, 80%, 90%) with such fine granularity. In Fig. 4(a), they (70%, 80%, 90%) do not show much different anyway while there's a huge difference in the histograms between 10% and the rest (20% ~ 90%). To solve this problem, I suggest using something like s=1%, 2%, 4%, 8%, ..., 64% (log scale) instead of 10%, 20%, ..., 90% (linear scale). This way, we can also see the effect of very small n, which I believe is an interesting regime to study. Using log scale may also be better for comparing consistency profiles for different datasets such as CIFAR-10 and CIFAR-100. Fig. 2 shows the consistency profile curves start at around 0.2 for CIFAR-10 at s=10% while they are more spread from 0.0 to 0.85 for CIFAR-100 at s=10%. This may be an artifact of having coarse-grained intervals for s. By using log scale, we may be able to see a similar behavior between CIFAR-10 and CIFAR-100 only shifted in log scale, e.g., the consistency profile curves for CIFAR-100 may also start around 0.2 when s=1%.
+
+I am not sure how to justify the definition of C-score that simply averages the consistency profile over uniform s from 10% to 90%. Why uniform instead of non-uniform? Why consider averaging instead of max, min, etc.? There are many other possibilities. Taking an average over uniform s seems ad hoc to me. Can authors provide a good justification? If there's no good justification, it may make sense to define C-score at a particular value of s (what authors call a point estimate) without even defining C-score averaged over s. But, this issue does not seem crucial.
+
+How about using a higher learning rate for samples with low C-scores to facilitate learning from small number of irregular samples? This seems to be the opposite of what authors are suggesting in Figs. 8 and 9. 
+
+It would be great if authors can improve the performance of optimizers based on the observations made in Figs. 8 and 9."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""**Summary:** This paper empirically investigates the impact of regularization
+techniques on the *intrinsic dimension* of model activations across the network
+and how this quantity is connected to generalization. 
+
+**Strengths, Weaknesses & Questions:**
+- The paper is well-written and nicely structured with a motivating
+introduction. The experiments are well thought out and the observations are
+explained and discussed comprehensibly. 
+- My main point of criticism: The intrinsic dimension is *the* central quantity
+of your paper, but the definition you provide in lines 32-35 is quite vague and
+therefore not sufficient in my opinion. I'd thus suggest adding a precise
+mathematical definition and explanations of how you computed this quantity.
+Without that, the reader is left with the information that it is some form of complexity
+measure, which strongly limits in-depth interpretation and assessment of your
+results. 
+- Figures 2, 5, and 6: Almost all weight decay values are shown in gray (I guess
+because you use a log-style grid to generate them). This makes it hard to
+distinguish different weight decay values. I'd thus suggest using the log scale
+also on the color bar.
+- Figure 4: I would have expected the relationship between PID and weight decay
+to be monotonic. But, this does not seem to be the case: Very small weight decay
+values *and* large values lead to small PID with a maximum PID in between. Do
+you have an explanation for this behavior? Also, I'd suggest using a log scale
+for the weight decay axes to spread out the small values.
+
+**Minor:**
+- Line 41: I don't understand what it means for activations to *live on* a
+low-dimensional manifold. 
+- Figure 3: In my opinion, this Figure could be improved by using a 4x4 grid.
+This way, the subplots could be ordered such that the $p$-value determines the
+row and the WD-value the column. This would facilitate orientation and would
+make it more obvious that the occurrence of red lines results from small $p$ and
+small WD. Also, how is the y-label *Validation ID* defined - is it LLID?"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""# Summary
+The author present a novel algorithm for encouraging object interactions in an unsupervised exploration setting.
+They propose a novel intrinsic reward formulation based on counterfactual reasoning, and show that this method outperforms baselines on multi-objects environments.
+
+# Significance, Novelty, Impact
+The paper proposes a novel intrinsic reward formulation, with two variants -- namely, forward model and successor features -- which are well-defined and motivated.
+The reward formulation is general and has a great potential in tasks that contain multiple objects, for which previous intrinsic reward formulation could converge to a low hanging fruit behaviour.
+
+# Empirical Evaluation
+The method is validated empirically in two different object manipulation tasks.
+The experiments contains comparison against unsupervised exploration baselines, as well as a topline with domain knowledge.
+The method outperforms baselines on all tasks, and is the only method succeeding in performing object interaction in the harder task.
+The author also presented extensive analysis to understand the behaviour of both variants of their method, as well as generalization experiments to unseen objects.
+
+# Writing
+The paper is clear and well-written, and succeeds in providing an intuition of both problem and method, and the balance is good between formal description and intuitive explanation.
+It provides extensive evaluation, analysis and qualitative visualisation of the method.
+
+# Remark
+One interesting ablation would be to compare several types of interventions (random perturbations vs. more object-specific interventions), and study the impact on the downstream task performance."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""Motivating Example: Interesting, this gets into some Theory of Mind stuff to me, but I'm curious how it gets addressed later in the paper. 'Online Model Reconciliation' maybe?  
+
+Figure 1: the text in the bubbles is too small to read. I therefore lose the point of seeing it, though it does look nice.
+
+Conclusion: What next?
+
+Minor:
+
+  Definition 1: the gap between the end of this and the start of the next paragraph looks like its somehow formatted oddly? Rearranging that sentence of cost(\\pi,M) so that it's not so close to the above italics would probably fix it.
+
+  Definition 2: Your equations mess w/ the padding of the line. I might break it out similar to your definition of r(f) above."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper takes a number of widely-used algorithms for sequence generation, including maximum-likelihood, RAML, SPG and data noising and shows that they can all be viewed as optimizing a member of a family of objective functions, which is defined through three hyper-parameters that control parts of the objective - the reward, a maximum entropy term, and a KL term between a variational distribution and the model. 
+
+The authors show the exact values of the hyper-parameters that lead to these various objectives and also shed light onto how these hyper-parameters correspond to a trade-off between the exploration and difficulty of learning, where more exploration results in a more difficult learning problem. 
+
+Because now we have a family of objectives, the authors now naturally propose an algorithm that anneals the values of the hyper-parameters using a curriculum where simple learning without exploration happens at the beginning and more exploration is added later on to avoid local minima.
+
+I found the analysis clear and interesting, the insights on the relation between the algorithms to be informative and the final simple algorithmic contribution to be natural and worthwhile. Overall, a nice paper that I think definitely fits well in this workshop.
+
+It is worth noting that a similar but different attempt has been made in the context of sequence generation when there is no gold sequence given at training time: See Misra et al. 2018
+http://www.cs.cornell.edu/~dkm/papers/mchy-emnlp.2018.pdf"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The stated contribution of the paper is the development of a model to learn continuous representations of k-mers from RNA sequencing experiments in an annotation-free manner. The paper motivates this model by considering analysis challenges faced in cancer genomics. This introduction serves well to frame the paper towards addressing these challenges. In particular, the authors highlight challenges faced in recognizing and quantifying patient/tumor-specific RNASeq based expression estimates involving structural variants and indels, which have and continue to be a challenge for existing tools. 
+
+Despite this, we are not enthusiastic about the paper for the following reasons:
+Narrow and incomplete view of commonly used modern RNA-seq tools/pipelines and their application/use in biomedical research.
+
+The proposed computational method is computationally intractable and is unlikely to ever scale to the genome-wide context.
+
+Described experiments are without context to the existing literature of tools designed to address the biological challenge and by construction are not annotation free.
+
+We further describe these reasons in the following subsections. Overall, we do not believe that the described model/experiments demonstrate utility for either the specific problems in cancer genomics that motivate the paper or the biomedical research field in general.
+
+Narrow and incomplete view of RNA-seq tools/pipelines/application:
+------------------
+'Reducing this rich data to only the detection of annotated genes [...] is not appropriate for analysis'. Modern RNA-seq pipelines also perform quantification and differential analysis at a minimum.
+The description of the standard RNA-seq experiment is problematic:
+Sequencing is of cDNA after reverse transcription, not RNA.
+Ignores paired end reads (especially with longer insert sizes for fusion detection)
+Shredder poor analogy given multiple distinct reads from same sequence, known biases in process
+'[...] multiple sequence alignment is an NP-hard problem'. This is true but irrelevant.
+Chromosomal translocations are indeed hard to detect by RNA-seq, but not impossible. There are strategies implemented in commonly used tools such as STAR, kallisto, and others to detect these and other structural variants. Individual reads do not have to themselves cover the sequence where translocation occurs, instead read pairs can imply that the insert contains a translocation -- in this case, sequence similarity is much higher. Regardless, cheaper orthogonal assays exist that can detect these events.
+'The standard RNA-Seq analysis pipeline has a mean processing times of 28 core hours for mapping with software TopHat, followed by an additional 14 hours of quantification'. See 'Please stop using TopHat' (https://twitter.com/lpachter/status/937055346987712512?lang=en) by one of the authors of TopHat and the senior author of the cited paper. Standard pipelines use newer aligners like STAR which are substantially faster.
+'Reference based methods yield a relative abundance measurement of genes, which are by definition, hand crafted features'. Relating results back to genes is important to be able to connect sequencing results back to known biology. We see the fact that there is no obvious map from the proposed method back to genetic information as a weakness.
+
+Proposed computational method computationally intractable and unlikely to scale to genome-wide context
+------------------------
+Plus:
+Paper does acknowledge that scalability is a limitation.
+Minus:
+Lower bound of range of unique kmers per sample without pre-filtering is 10 billion; note that storing counts uncompressed as 32-bit integers corresponds to over 37GB per sample.
+Experiments are for only four genes, two at a time with a 2-dimensional embedding. Unclear how patterns will hold when considering k-mers from more genes simultaneously or how embedding could scale. Model formulation suggests that k-mers from co-expressed genes will have similar embeddings, which could complicate visual inspection.
+Abstract states that 'learned representation both useful for visualization as well as analysis'. Unclear what is done with model/embeddings besides visualization -- non-visual analyses are performed with k-mer counts before embedding. Identification of abnormalities are described only by visual inspection, which is unlikely to scale as more k-mers are added and/or if the dimensionality of the embedding increases.
+
+Experiments without context to existing literature and are not annotation free
+----------------------------------------
+
+The paper describes that existing methods are limited by their dependence on annotations. The paper does not describe existing methods using annotations designed to address tasks/applications suggested for the new model. The paper does not compare developed model to these existing methods. To make the experiments performed in the paper computationally tractable, RNA-seq reads are aligned to the reference genome (annotations of sequence) and sequences in specific regions, defined with respect to genes of interest (annotations of genes). The experiments are therefore dependent on annotation although they lose their information/interpretability in this context. The paper notes that many kmers are not included in exonic sequences according to exact matches to annotations of coding sequence. Nonetheless, these reads are in this dataset, which means they are also identified by standard tools/annotations despite their differences. In Figure 3, embedding overlap between kmers in the annotated coding sequence of ZFX and ZFY are illustrated. It would be helpful to show the proportions of reads that were used for this analysis that mapped uniquely vs not to genomic intervals in these genes (reads rather than kmers). In this regard, the absence of any note or methods describing how reads were mapped (what method, with which parameters) to reference (which reference genome, which gene annotations) is a serious limitation.
+
+Other notes
+---------------------
+The heatmap in Figure 5A is ambiguous and could be improved by better annotating what is on rows/columns, perhaps also including numeric information textually in addition to by color.
+Identification of kmers spanning translocation region (illustrated in embedding space by 5B) was done entirely without kmer2vec (identifying exclusive kmers, assembly of kmers, BLAST alignment to two chromosomes). Thus, claim that, as a consequence, 'kmer2vec captures real genomic abnormalities and allows to extract directly from the kmer embedding space the abnormal sequence' is unsubstantiated.
+
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The authors suggest using a mixture of shared and individual rewards within a MARL environment to induce cooperation among independent agents. They show that on their specific application this can lead to a better overall global performance than purely sharing the global signal, or using just the independent rewards.
+
+The paper is a little too focused on the packet routing example domain and fails to deliver much in terms of a general theory of reward design for cooperative behaviours beyond showing that mixed rewards can lead to improved results in their domain. They discuss what and how rewards, and this could be made more formal, as well as (at the very least) some guiding principles to follow when mixing rewards. It feels like there is a missing section between sections 2 and 3, where this methodological content could be described.
+
+The rest of the paper has similar issues, with key intuition and concepts either missing entirely or under-represented. The technical content often assumes that the reader is familiar with certain terms, and it is difficult to see what meaningful conclusions can be drawn from the evaluation.
+
+
+On a minor note, the use of the term cooperative in this paper could be better defined. In game theory, cooperative games are those in which agents share rewards. Non-cooperative (game theory) games are those where agents have general reward signals (not necessarily cooperature or adversarial). Conventionally (yes there is existing reward design/shaping literature for MARL) people have used the same terms in MARL. Perhaps the authors could define their approach as weakly cooperative, or emergent cooperation.
+
+The related work could be better described. There are existing papers on MARL and the issues with cooperation among independent learners, and this could be referenced. This includes reward shaping and reward potential. I would also have expected to see brief mention of empowerment in this section too (the agent favouring states where it has the power to control outcomes in an information theoretic sense), as an underyling principle for intrinsic reward. However, more importantly, the authors really needed to do more to synthesize this into an overall picture of what principles are at play and what ideas/methods exist that have tried to exploit some of these principles.
+
+Detailed comments:
+  '¢ [p2] the authors say 'We set the meta reward signals as 1 - max(U l ).', before they define what U_l is.
+  '¢ [p2] we have 'As many applications in the real world can be modeled using similar
+methods, we expect that other fields can also benefit from this work.' This statement is too vague, and the authors could do more to identify which application areas might benefit.
+  '¢ [p3, first para] 'However, the reward design studies for MARL is so limited.' Drop the word 'so'. Also, I would argue that there have been quite a few (non-deep) discussions about reward design in MARL, cooperative, non-cooperative and competitive domains. 
+  '¢ [p3, sec 2.2] 'This makes the diligent agents confuse about...' should be 'confused', and I would advise against anthropomorphism at least when the meaning is obscured.
+  '¢ [p3, sec 3] 'After having considered several other options, we finally choose the Packet Routing Domain as our experimental environments.' Not sure what useful information is being conveyed here.
+  '¢ [sec 3] THe domain could be better described with intuition and formal descriptions, e.g. link utilization ratio, etc, before.
+  '¢ [p6] 'Importantly, the proposed blR seems to have similar capacity with dlR,' The discussion here is all in terms of the reward acronyms with very little call on intuition or other such assistance to the reader.
+  '¢ [p7] 'We firstly try gR without any thinking' The language could be better here."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""Overall, it was difficult to understand the main approach presented in the paper. 
+It was unclear as to the kind of environments that were being considered in the approach. The presentation could have benefitted significantly by considering a few standard environments / domains; then following that with the approach and discussing each component of the approach."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper focuses on the use of P&S techniques for Home Health Care Management. In particular, it addresses the problem of scheduling the work of a number of caregivers in order to deal with the current services demand. In a nutshell, the idea is to take a multi-agent perspective: each caregiver is a different agent, described by her own characteristics, that can cooperate with others in order to satisfy the overall demand. The core of the method relies on the possibility to break tasks between 2 agents with different qualification levels. 
+Some ideas to address the dynamic aspects of the problem at hand are also introduced and discussed. 
+
+The paper is generally easy to follow: the addressed problem is formalised, and an ad-hoc algorithm is proposed to deal with it. On this matter, I'd have preferred to get more information about the P&S techniques, and possibly the use of more general (domain-independent) approaches. As it stands, it does not give too much to the SPARK community, as I struggle to see how the proposed approaches can be used in different domains. I'm wondering, for instance, how good would a SLS approach perform. 
+
+All in all, the paper deals with an interesting problem, and can be of interest for the SPARK community. For future work in the area, I'd suggest the authors to either (a) focus on SLS or MIP approaches, or (b) investigate how more general existing planning techniques can deal with the specific problem. In particular, (b) would potentially provide insights and lessons for the wider ICAPS community."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper propose to add an OT-based regularization term to seq-2-seq models in order to better take into account the distance between the generated and the reference and/or source sentences, allowing one to capture the semantic meaning of the sequences. Indeed, it allows the computation of a distance between embeddings of a set of words, and this distance is then used to define a penalized objective function.
+The main issue with this computation is that it provides a distance between a set of words but not a sequence of words. The ordering is then not taken into account. Authors should discuss this point in the paper.
+Experiments show an improvement of the method w.r.t. not penalized loss.
+
+Minor comments:
+- in Figure 1, the OT matching as described in the text is not the solution of eq (2) but rather the solution of eq. (3) or the entropic regularization (the set of 'edges' is higher than the admissible highest number of edges).
+- Introduction 'OT [...] providing a natural measure of distance for sequences comparisons': it is not clear why this statement is true. OT allows comparing distributions, with no notion of ordering (see above).  
+- Table 1: what is NMT?
+- first paragraph, p7: how do you define a 'substantial' improvement of the scores?
+- how do you set parameter $\\gamma$ in the experiments? Why did you choose \\beta=0.5 for the ipot algorithm?
+
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper lacks any novelty/contribution as it just applies well-known and standard architectures for object detection (SSD) and image classification (LeNet) trained with standard algorithms and losses.
+
+Moreover, I fail to see what is the purpose of the proposed pipeline and it is not clear at all how it may help improving existing OCR engines in any particular scenario (handwriting recognition, printed text, historical documents, etc.). No demonstration or comparison with state of the art is provided. 
+
+The authors claim 'This work is the first to apply modern object detection deep learning approaches to document data' but there are previously published works. For example:
+
+Tuggener, Lukas, et al. 'DeepScores--A Dataset for Segmentation, Detection and Classification of Tiny Objects.' ICPR 2018.
+Pacha, Alexander, et al. 'Handwritten music object detection: Open issues and baseline results.' DAS 2018.
+
+Actually, in my opinion Music Object Detection in musical scores would be a much better test-bed/application for the proposed pipeline than any of the datasets used in this paper.  The datasets used in the experimental section seem to be created ad-hoc for the proposed pipeline and do not come from any real world application. 
+
+Finally, the presentation of the paper is marginal. Data plots have very bad resolution, there are no captions in any table or figure and they are not correctly referenced within the text. There seem to be also missing content in the last sections which makes them impossible to read/understand."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",2
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""Paper summary:
+
+This paper proposes a novel unsupervised embedding for time-series. Its architecture mainly consists in a series of dilated causal convolutions, followed by a temporal averaging to obtain a representation which is independent on the length of the time-series. The authors propose a triplet loss with negative mining to train the embedding, which is novel for real-valued time-series. This method is experimentally validated on a classification and a regression task.
+
+General opinion:
+
+* Pros:
+    * Good writing
+    * Detailed appendix with experimental hyperparameters, so that the results are pretty reproducible.
+    * For classification and regression, the proposed method reaches results close to the state-of-the-art.
+* Cons:
+    * The authors state that the embedding is unsupervised, but in Appendix C they acknowledge that it is trained with early-stopping based on the final classification accuracy, thereby relying on an implicit supervision.
+    * This method does not improve over the state-of-the-art on time-series classification, even though it is its natural purpose
+    * The experimental validation of the proposed method is weak (cf detailed method).
+    * I have some concerns at the conceptual level (cf detailed questions).
+
+Taking into consideration these aspects, I tend to vote for a weak rejection.
+
+Detailed questions:
+- On a conceptual level, the ideas underlying the use of a triplet loss explained in the 3rd paragraph of section 2 seems a bit incomplete to me. On the one hand, the authors state that the embedding of a sub-series should be close to the embedding of the series. On the other hand, they also state that this embedding should be far from the embedding of a randomly sampled sub-series, possibly in the same long time-series. This seems contradictory, because if they belong to the same global time-series, they are both sub-series of the global time-series and therefore should be close. Also, the fact that no scale is taken into account when defining sub-series seems quite irrealistic.
+- Why is using a *causal* embedding important for classification purposes? 
+- Experimentally, what are the results when the number of negative samples, K, varies? Experiments have been performed with this parameter varying as an ensemble is taken. It is a pity that the importance of this value is not reported, as it would have provided an intuition on its importance.
+- The runtimes reported in Table 1 are a bit strange. Why does the runtime of the raw values vary so much (x30) when moving from daily to quarterly predictions, while the runtime of the representations diminishes (/3)?"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""Here are my main critics of the papers:
+
+1. Equation (1), (2), (3) are those expectations w.r.t. the data distribution (otherwise I can't think of any other stochasticity)? If so your phrase 'is zero given a sequence of inputs X1, ...,T' is misleading. 
+2. Lack of motivation for IE or UIE. Where is your background material? I do not understand why we would like to assume (1), (2), (3). Why the same intuition of UIE can be applied to RNNs? 
+3. The paper proposed the new architecture RIN, but it is not much different than a simple RNN with identity initialization. Not much novelty.
+4. The experimental results are not convincing. It's not compared against any previous published results. E.g. the addition tasks and sMNIST tasks are not as good as those reported in [1]. Also it only has been tested on very simple datasets.
+
+
+[1] Path-Normalized Optimization of Recurrent Neural Networks with ReLU Activations. Behnam Neyshabur, Yuhuai Wu, Ruslan Salakhutdinov, Nathan Srebro."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",2
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""I am not sure if the paper is relevant to the XAIP Workshop. I suppose goal recognition can be seen as a way of trying to 'explain' what the goal of an agent is from observations. But the authors made no attempt to make that stance. Even if that is the case, there is plenty of existing work [1] where the agent tries to make the goal or plan recognition task easier for the observer.
+
+If there is a case to be made for operator count heuristics specifically for this purpose, I would love to hear it.
+
+[1] Explicability? Legibility? Predictability? Transparency? Privacy? Security? The Emerging Landscape of Interpretable Robot Behavior. Tathagata Chakraborti, Anagha Kulkarni, Sarath Sreedharan, David Smith, Subbarao Kambhampati.
+
+[2] Also this might be interesting to the authors (at the intersection of XAIP and landmarks): https://arxiv.org/abs/1903.08218"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",2
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""SUMMARY:
+This paper is about potential problems of the information bottleneck principle in cases where the output variable Y is a deterministic function of the inputs X. Such a deterministic relationship between outputs and inputs induces the problem that the the IB 'information curve' (i.e. I(T;Y) as a function of I(X;T)) is piece-wise linear and, thus, no longer strictly concave, which is crucial for non-degenerate ('interesting') solutions. The authors argue that most real classification problems indeed show such a deterministic relation between the class labels and the inputs X, and they explore several issues that result from such pathologies.
+
+EVALUATION:
+In my opinion, the whole story could be summarized as follows: if  Y is
+a deterministic function of p-dimensional inputs X, then the joint distribution P(X,Y) is 
+degenerate in that its support lies in a space of dimension p (an not p+1 as it would be in the non-degenerate situation), and this is the source of all pathologies observed. As a consequence, only the cumulative distribution is defined, but there is no density with respect to the Lebesgue measure of R^{p+1}. Thus, one has to be careful when defining the mutual information I(X,Y), which explains the problems with the IB information curve (which should asymptotically converge to I(X;Y) as I(X;T) gets large. Another consequence of this degeneracy concerns the latent variable interpretation of the IB: if T is treated as a latent variable (as, for instance, in the 'deep' IB models) then we have the conditional independence relation 'Y independent of X given T', which simply makes no sense if Y is deterministic in X (there is, of course, a deeper underlying problem here: the IB problem is difficult in that it is difficult to define a geneative model with a faithful DAG...).
+Analyzing situations in which Y = f(X) (with f being a deterministic function) is certainly interesting from a theoretic point of view, but I am not convinced that this analysis is truly relevant for practical problems. 
+In particular, I strongly disagree with the statement that 'in most classification problems, the labels Y are a deterministic function of X'. I would rather argue that the opposite is the case, because I don't think that there are too many such problems with zero Bayes error rate.  In particular, I would argue that digit recognition problems like MNIST so not have deterministic labels, since there will always be images of handwritten characters that will give room for interpretation..."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The paper studies question generation, which is an important problem in many real applications. The authors propose to use better caching model and more evalution methods to deal with the problem. However, the paper is poorly written and hard to follow, and the proposed model lacks of novelty. The main reasons are as below:
+
+1) In model section, the task definition is not clear. It is expected to see what's the question generation task studied in this paper. An example or a model overview will definitly help.
+
+2) The encoder and decoder are not novel, it is expected to cite and compare with the existing similar encoder architecture, such as the encoder proposed in bidaf 'Seo, Minjoon, et al. 'Bidirectional attention flow for machine comprehension.' arXiv preprint arXiv:1611.01603 (2016).'  The math symbols are aligned, for example, h_a or h^a is used to represent the encoding. Besides, adding the binary feature in the embedding is not necessary, the LSTM model could learn such sequential correlation. The decoder description is not clear as well and expected to compare with existing work (e.g., bidaf) to show the difference.
+
+3) The proposed copy mecahnism is not clear. A formal definition of s_t, v_t and y_(t-1) should be given before defining the p_t. A more serious question, what is the fuse operation used to define p_t? concat, elementwise_plus or others?
+
+4) In the training, how to deal the ground truth that are not in the vocab? The authors stated 'using a modified heuristic described below', but no follow-ups in the paper.
+
+5) The paper is not well written and organized. Small typos: in introduction, 'and and answer span', 'and output and output sequences'. In model, 'Glorot initialization', 'Bahdanau attention', it is not the common way to cite others' work. In encoder, the defintion of the state for decoder could be reorganized to the decoder.
+
+I have read the authors' detailed rebuttal. Thanks."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The problem statement is unclear and informal throughout most of the paper. Towards the end the reader gets an idea in retrospect, but the involved concepts remain vague. The definition of 'hollow body' is essentially via an algorithm (that involves quite a number of rather arbitrary engineering choices) rather than via a mathematical concept (that would then be realized or approximated by an algorithm / implementation).
+
+The motivation remains unclear. No plausible use case for the orientation dependent definition of 'hollow body' is given. Then paper mentions (quite extensively!) 3D display technology as well as CAD systems, but ultimately no connection to these is made.
+
+There are numerous language and grammar errors. At times this makes it hard to even make sense of the text, or to be certain things are understood as intended.
+
+The paper spells out algorithmic parts in detail that are standard knowledge (like determination of connected components in a labeled voxel grid) and therefore could be reduced to a short sentence (and perhaps a reference).
+
+Robustness (with respect to non-uniforn sampling, noise, etc.) is not addressed or discussed. Presented results apparently use synthetic point clouds rather than real-world data.
+
+The algorithm makes use of multiple thresholds. Their choice is not discussed. This, together with the various formal clarity issues, hinders reproducibility of the method and the results. In the result section successes and fails are reported; it remained unclear what even constitutes a 'fail'.
+
+Overall, the paper's presentation is of a quality and clarity that is not acceptable for publication. The paper's contribution is quite limited and its potential significance remained open.
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",2
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""
+The paper presents the Explainable Planning (XAIP) framework  - introduced in the past IJCAI-XAI-17 workshop - to be provided 'as a service'. The key element of XAIP is the ability for the user to formulate contrastive questions (i.e., why did you do action A rather than B?). This would allow the user understanding the rationale behind the plan provided, transforming an opaque plan into a trustworthy one. To answer such a kind of question, the user has to (i) use its own planners; (ii) be able to add constraints on which the contrastive questions will be evaluated (aka hypothetical model, HModel); (iii) have a validation of the Hplan synthesised.
+
+The approach is definitively interesting for the workshop, and for XAI broadly. The paper is well written and clear. The motivating example and the workflow are useful and gently  introduce to the reader the rationale behind XAIP. 
+
+COMMENTS:
+
+-- In my view, the approach shown in Fig. 5 should be an iterative process, as the user might continue generating HModels, for example by asking to explain the behaviour of HModel^2 generated from HModel_1... Roughly, I consider XAIP an approach to better understand how a planner works in a given domain, so the trustworthy grows as the understanding grows. The authors also agree with this view, as they describe XAIPSaas as an iterative process in Sec 3.3. This might be also reflected into Fig.5
+
+-- 'The user question is encoded as a set of constraints, which represent the formal question, and this can be done through a dialogue where the user is guided to select the constraints that match their question.' As far as I can understand from the paper, it seems there is a set of questions pre-defined (bullet points of Sec 3) - that the user can select from a GUI - where actions A and B act like a placeholder that the user can replace with domain variables. Then, each question is formalised using the approach of Smith, 2012. 
+If so - as it seems from Sec 5 -  I think using the term 'dialogue' now is misleading as it seems the framework can encode naturale language into PDDL. To realise this, the authors might plan to employ word-embedding algorithms, that are able to represent word meaning into a N-dimensional vector space. Words with similar meaning are mapped to a similar position in the vector space. For example, 'powerful' and 'strong' are close to each other, whereas 'powerful' and 'Paris' are farther away. The word vector differences also carry meaning. For example, the word vectors can be used to answer analogy questions using simple vector algebra: 'King' - 'man' + 'woman' â‰ˆ 'Queen' (Mikolov, Yih, and Zweig, 2013). This knowledge also grows over time, making the system able to 'understand' different meaning of sentences on the base of the lexicon used.
+
+-- An interesting feature that might be added to XAIP as a service would be the ability to perform analytics on the domain/problem. Roughly, it is a step-by-step approach that generate a HModel for each contrastive question. It might be usel to the user to select a 'set' of contrastive questions that the system automatically encodes in a cascading HModels, then providing 'analytics' about the behaviour of the system that summarises how the planner works in that domain as a whole in a 'simulation' setting."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The paper purports to present a novel domain-independent planning heuristic tailored to web service composition. The paper is very hard to read, full of sentences that are not at all easy to parse (let alone make sense of) and concepts coming out of nowhere. There are way too many inaccuracies and plainly wrong statements. Let me enumerate just a few, mostly from the Introduction and State of the Art sections:
+
+* The characterization of heuristics is wrong: search heuristics are implicitly understood to take into account, in one form or another, the goal of the problem, so it makes no sense to talk, as the authors do, of using goal information in the computation of the heuristic as a novel contribution.
+
+* The authors do not make clear in which sense translating a web service composition problem to PDDL loses 'much of the semantics on the way'.
+
+* 'Uniform action costs' is not a heuristic; the way in which it is presented as an admissible heuristic makes no sense at all.
+
+* In p. 2 it is stated that the heuristic presented in (Haslum and Geffner 2000) 'only works for the relaxed problem when the service effect does not have a delete-list, and only the add-list is added to the current state to create a new state.' The sentence is not too clear, but it certainly gives the incorrect impression that the heuristic does not apply to problems with delete effects, which is not the case.
+
+* Standard concepts from the planning literature such as 'post-uniqueness', 'binariness', 'open world assumption' are brought into the discussion out of nowhere, with no clear relation to what is being discussed.
+
+* The State of the Art section states that 
+'the state of the art in generating heuristics is mainly based on the relaxation of an original problem by abstraction. Some of them use the domain description to structure the search space, others analyze services to identify landmarks which help to break down the search problem. But no heuristic found so far has used the semantics of the planning problem. Thus, those heuristics are often not applicable to general planning in real-world problems' 
+
+It is not clear nor explained elsewhere in which sense the heuristics do not 'use the semantics of the planning problem', let alone why they are not applicable to 'general planning in real-world problems'.
+
+* No formalization at all of the problem that is being tackled is given.
+
+* The Discussion section states that 
+'The problems used in academia are mostly formalized in PDDL with few semantics, e.g. input and output parameter type class hierarchies.' Additionally, in the 'toy domains' used in academia, 'the services available are domain specific and are mostly necessary to solve the problem. Thus, the planning task is not a task of using the right services but rather to bring them in the right order. In contrast, in the general planning problem, the right services have to be selected to establish a domain. This domain includes the relevant services that help the agent to reach its goal.''
+
+Unfortunately I couldn't make much sense of the previous, e.g. it is not clear to me at all in what is the meaning of 'PDDL with few semantics', of ' input and output parameter type class hierarchies', and so on.
+
+* ...
+
+
+The above is but a quick sample. Overall, the paper does not meet the standards of clarity, scholarship and relevance of the workshop, and hence I propose rejection.
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",2
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper proposes a method for learning how to explore environments. The paper mentions that the 'exploration task' that is defined in this paper can be used for improving the well-known navigation tasks. For solving this task, a reward function a network architecture that uses RGBD images + reconstructed map + imitation learning + PPO is designed.
+
+<<Pros>>
+
+-The paper is well-written (except for a few typos).
+-The overall approach is simple and does not have much complications. 
+-The underling idea and motivation is clearly narrated in the intro and abstract and the paper has a easy-to-understand flow.  
+
+<<Cons>>
+
+**The technical novelty is not significant**
+
+-This paper does not provide significant technical novelty. It is a combination of known prior methods: imitation learning + ppo (prior RL work). The presented exploration task is not properly justified as to how it could be useful for the navigation task. The reconstruction of maps for solving the navigation problem is a well-explored problem in prior SLAM and 3D reconstruction methods. Overall the novelty of the approach and the proposed problem is incremental. 
+
+**The paper has major short comings in the experimental section. The presented experiments do not support the main claim of the paper which is improving the performance in the well-known navigation task. Major baselines are missing. Also, the provided results are not convincing in doing the right comparison with the baselines. **
+
+-Experimental details are missing. The major experimental evaluations (Fig. 2 and Fig. 3) are based on the m^2 coverage after k steps and the plots are cut at 1000 steps. What are the statistical properties of the 3D houses used for training and testing? E.g what is their area in m^2? How big is each step in meters?  Why are the graphs cut at 1000 steps? How would different methods converge after more than 1000 steps, e.g. 2000 steps? I would like to see how would the different methods converge after larger number of steps? How long would each step take in terms of time? How could these numbers convey the significance of the proposed method in a real would problem settings? 
+
+-The experiments do not convey if learning has significantly resulted in improved exploration. Consider a simple baseline that follows a similar approach as explained in the paper for constructing the occupancy map using the depth sensor. A non-learning agent could use this map at each step to make a greedy choice about its next action which greedily maximizes the coverage gain based on its current belief of the map. While the performance of random policy is shown in Fig.2 the performance of this greedy baseline is a better representative of the lower bound of the performance on the proposed task and problem setup.
+
+-What is the performance of a learning-based method that only performs collision avoidance? Collision avoidance methods tend to implicitly learn to do a good map coverage. This simple baseline can show a tangible lower bound of a learning-based approach that does not rely on map.
+
+-The major promise of the paper is that the proposed exploration task can improve navigation. However, the navigation experiment does not compare the proposed method with any of prior works in navigation. There is a huge list of prior methods for navigation some of which are cited in the 'learning for Navigation' section of the related works and the comparison provided in Fig. 4 is incomplete compared to the state-of-the-arts in navigation. For example, while the curiosity driven approach is compared for the exploration, the more related curiosity based navigation method which uses both 'exploration strategy' and 'imitation learning' : 'Pathak, Deepak, et al. 'Zero-shot visual imitation.' International Conference on Learning Representations. 2018.
+' is missed in navigation comparison. The aforementioned paper is also missed in the references.  
+
+-Algorithmic-wise, it would make the argument of the paper clearer if results were conducted by running different exploration strategies for navigation to see if running RL with a good exploration strategy could solve the exploration challenge of the navigation problem without needing an explicit exploration stage (similar to the proposed method) which first explores and constructs the map and then does navigation by planning.
+
+-The navigation problem as explained in section is solved based on planning approach that uses a reconstructed map. This is a fairly conventional approach that SLAM based methods use. Therefore, comparison with a SLAM method that constructs the map and then does navigation would be necessary. 
+
+
+** Technical details are missing or not explained clearly**
+
+- Section 3.1 does not clearly explain the map construction. It seems that the constructed map is just a 2D reconstruction of the space (and not 3D) using the depth sensor which does not need transformation of the 3D point cloud. What is the exact 3D transformation that you have done using the intrinsic camera parameters? This section mentions that there can be error in such map reconstruction because of robot noise but alignment is not needed because the proposed learning method provides robustness against miss-alignment. How is this justified? Why not using the known loop closure techniques in SLAM? 
+
+-The technical details about the incorporated imitation learning method are missing. What imitation learning method is used? How is the policy trained during the imitation learning phase? 
+
+-Last paragraph of intro mentions that the proposed method uses 3D information efficiently for doing exploration. The point of this sentence is unclear. What 3D information is used efficiently in the paper? Isn't it only 2.5D (information obtained by depth sensor) used in the proposed method?
+
+**Presentation can be improved**
+
+-The left and right plots of the Figure 3 contains lots of repetitions which brings in confusion in comparing the performance of runs with different settings. These two plots should be presented in a single plot. 
+
+- Interpretation of 'green vs white vs black' in the reconstructed maps is left to the reader in Fig. 1. 
+
+- Last line in page 5: there is no need for reiteration. It is already clear.
+
+**Missing references**
+
+-Since the paper is about learning to explore, discussion about 'exploration techniques in RL' is recommended to be added in at least the related work section. 
+
+-A big list papers for 3D map reconstruction is missing. Since the proposed method relies on a map reconstruction, those papers are relevant to this work and can potentially be used for comparison (as explained above). It is highly recommended that relevant prior 3D map reconstruction papers be added to the related work sections. 
+
+
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The authors propose a loss function to generate natural images that include two separate objects via a GAN.  The loss uses a sort of self-supervision by noting that the decomposition of a natural image with two objects into individual object images should match closely to the original object images.  The decomposition and composition network are then learned jointly.  Additionally, at test time, the authors provide a loss that tunes pixels to preserve color and texture.
+
+I thought this short paper was quite clear (given space constraints) --- the objective was presented and described well.
+
+The authors claim originality that the composition self-consistency loss is a new insight --- I am not familiar with work that conflicts with that claim, though I cannot be certain.
+
+Questions/comments
+- What are the qualitative and quantitative differences between the $\\hat{c}^{after}$ and $\\hat{c}^{after}_s$ images?  This should be made a bit more clear in the text.
+- In the CelebA + Glasses experiment, what were the composite images used to train?"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""In this paper the authors develop the clever idea to use attractor networks, inspired by Hopfield nets, to 'denoise' a recurrent neural network.  The idea is that for every normal step of an RNN, one induces an additional 'dimension' of recurrency in order to create attractor dynamics around that particular hidden state. The authors introduce their idea and run some basic experiments. This paper is well written and the idea is novel (to me) and worthy of exploration.  Unfortunately, the experiments are seriously lacking in my opinion, as I believe *the major focus* of those experiments should be comparisons to other denoising / regularization techniques.
+
+MAJOR
+
+The point is taken that RNNs are susceptible to noise due to iterated application of the function. In my experience, countering noise (in the sense of gaussian noise added) isn't a huge problem in practice because there are many regularization methodologies to handle it. This leads me to the point that I think the experiments need to compare across a number of regularization techniques.  The paper is motivated by discussion of noise, 'noise robustness is a highly desirable property in neural networks', and the experiments show improved performance on smaller datasets, all of which speak to regularization. So I believe comparisons with regularization techniques are pretty important here. 
+
+MODERATE
+
+There is some motivation at the beginning of this piece, in particular about language, and does not contain citations, but should.
+
+'Training is in complete batches to avoid the noise of mini-batch training.'  Please explain, I guess this is not a type of noise that the method handles? 
+
+What about problems that require graded responses, which is likely anything requiring integration? For example,  what happens in the majority task if the inputs were switched to a non-discrete version, where one must hold analog numbers?
+
+
+MINOR
+
+Any discussion about the (presumably dramatic) increase in training time due to the attractor dynamics unrolling + additional batching due to noise vectors (if I understood correctly)?
+
+What are your confidence intervals over?  Presumably, we'd like to get confidence over multiple network instantiations.
+
+Pg 1. Articulated neural network? 
+
+
+QUESTIONS
+
+Does using a the 'c' variable as a bias instead of an initial condition really matter? 
+
+How does supervised training via eqn (4) relate to the classic training of Hopfield nets? I assume not at all, but it would be useful to clarify?
+
+What RNN architecture did you use in the Figure 5 simulations (tanh vanilla RNN or GRU?)
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""Summary: The paper proposes an object-centric architecture for reward functions that can be quickly learned using a single expert demonstration followed by a small number of queries asked to an oracle to find out whether the task was successful or not. The reward function consists of a reward function, a graph, and equivalence function assignments for each graph edge. The reward function is compositional and object-centric in the sense that the full reward is an average of reward computed per object pair. The graph determines which object pairs should be considered during reward calculation based on which edges are present in the graph. Finally, to each edge, a set of equivalence functions are assigned from a predefined function library. When the contribution of each object pair to the reward is computed, the object pair can be fed to its equivalence functions to nullify the effects of transformations (such as rotation or scaling) that do not violate the task goal.
+
+The learning takes an iterative active-learning-based approach. An initial reward function is first learned using M-AIRL which returns a reward function and a fully connected graph. In each iteration, a slightly different graph and equivalence assignment proposals are sampled with respect to the previous ones and then a reward function is trained. A final state is generated based on the newly trained reward function and the final state is queried against the oracle to find out if this state is acceptable. Based on this feedback the proposal (along with the reward function) is either accepted or discarded and the iterations continue until a stopping criterion. 
+
+Pros: Demonstrates an interesting use-case for object-centric representations that shows sample efficient learning of reward functions and generalization to unseen environments.
+
+Cons: Adding a brief description of M-AIRL could be helpful.
+
+Conclusion: The paper is interesting and relevant for the workshop.
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""Summary: The authors introduce a new problem setup where the agent observes a trajectory and is given a text description of a target trajectory. The agent must predict new initial conditions (i.e. an intervention) for a given pivot object such that when the dynamics are rolled out, the resulting trajectory conforms to the input text description. The authors propose to do this prediction by constructing an event-based tree and then performing a symbolic search on this tree.
+
+Pros: 
+1. The idea of the event tree is interesting and novel. 
+2. The experiment results show the clear benefit of using the event tree in comparison to feed-forward prediction using DeepSets. It is also more computationally efficient than the brute force method.
+3. Analysis shows the benefit of using a GNN for learning the value model.
+
+Cons: 
+1. Description of the forward model is limited and it is unclear if it is learned from data.
+2. What does the forward model output in more formal terms? 
+
+Conclusion: The paper is interesting and relevant for the workshop.
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper introduces an approach for refining PDDL+ process' models description. The underlying idea is to generate plans using an existing —even if inaccurate— model, observe how the predicted execution differs from an actual (or simulated) execution, and refine the PDDL+ accordingly. For refining purposes decision trees are used, and are analysed for identifying conditions to be used for the different processes values. In fact, the refined domain models is likely to include a large number of processes, where each of them has different numerical effects, according to the surrounding conditions.
+
+The paper is well written and easy to follow. The approach is well-motivated, and has the potential to foster the use of PDDL+ in real-world applications, as it reduces the pressure on knowledge engineers, and support maintainability. 
+
+As future areas of work, it would be great to assess whether different approaches for learning have the potential to overcome some of the issues of decision trees, or if more sophisticated features selection methods can substantially improve the accuracy of refined models. "" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper presents a simple method to incorporate gaze signals into standard CNNs for image classification, adding an extra term in the loss function. The term is based in the difference between the Class Activation Map obtained from the model, and the human map constructed using the eye tracking information. The authors apply their method to the POET dataset and report interesting results when using different sizes for the training set. They show that the gazed network achieved equivalent performance to that of a standard CNN using less training data for intermediate data regimes.
+
+The paper well written. It presents a simple idea which has a lot of potential, specially in the context of medical data (as suggested by the authors in their planned future works). Some comments I would like to see in the camera ready version of this work:
+
+- It is not clear how the human attention map is constructed. The authors just say that this is obtained by 'integrating the eye tracking signal in time'. Since this is a crucial element in their framework, I would like to see a detailed description of how this is obtained. If space constraint is a problem, you could just add an appendix section with this info.
+- In the orange line in Figure 2 (the line associated to the standard CNN) I do not see the std. This value is reported in table 2 (Appendix B), so I guess this can be a problem related to image transparency. Please, fix this problem so that we can see the confidence interval for the standard CNN as we can do with the gazed CNN.
+- Do you think this idea could be also useful to improve image segmentation based on CNNs with limited data?
+
+Minor corrections:
+- In Section 4: 'To test the this hypothesis' should be 'To test this hypothesis'.
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The authors explore how sequence models that look at proprioceptive signals from a simulated or real-world robotic hand can be used to decode properties of objects (which are not directly observed), or produce entropy maximizing or minimizing motions.
+
+The overall idea presented in the paper is quite nice: proprioception-based models that inject actions and encoder/pressure observations can be used to measure physical properties of objects that are not directly observed, and can also be used to create information gathering (or avoiding) behaviors. There is some related work that the authors do not cite that is highly relevant here. A few in particular come to mind:
+
+Yu, Tan, Liu, Turk. Preparing for the Unknown: uses a sequence model to estimate physical properties of a robot (rather than unobserved objects)
+
+Fu, Levine, Abbeel. One-Shot Learning of Manipulation Skills: trains a similar proprioception-only model and uses it for object manipulation, similar idea that object properties can be induced from proprioception
+
+But in general the citations to relevant robotic manipulation work are pretty sparse.
+
+The biggest issue with the paper though is with the results. There are no comparisons or reasonable baselines of any kind, and the reported results are a bit hard to judge. As far as I can understand, there are no quantitative results in simulation at all, and the real-world results are not good, indicating something like 15 degrees of error in predicting the pose of a single object. That doesn't seem especially good, though it's also very hard to tell without a baseline.
+
+Overall, this seems like a good workshop paper, but probably substantial additional experimental work is needed in order to evaluate the practical usefulness of this method. I would however strongly encourage the authors to pursue this research further: it seems very promising, and I think that, with more rigorous evaluation and comparisons, it could be quite a nice paper!
+
+One point about style: I found the somewhat lofty claims in the introduction a bit off-putting. It's great to discuss the greater 'vision' behind the work, but this paper suffers from a bit too much high-level vision and not enough effort put into explaining what the method actually does."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The authors present a novel normalization procedure based on weighted maximum likelihood. They extend the idea to make it works for feedforward neural networks.
+
+Globally, the paper is clear and well written, and the contribution interesting.
+
+The algorithm is well-motivated, and the related work is explained clearly.  I like the flexibility of the algorithm, highlighted in section 3.3. However, the step 'increment' in Algorithm 1 could be explained more clearly. I think it is worth to include a quick discussion on the complexity of one iteration, and compare it to other regularisation procedure.
+
+The numerical experiments seem promising, and the combination of the regularisation procedure with layernorm gives impressive results when classes are imbalanced.
+
+In conclusion, I recommend acceptance of this paper."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper introduces a machine learning adaptation of the active inference framework proposed by Friston (2010), and applies it to the task of image classification on MNIST through a foveated inspection of images. It describes a cognitive architecture for the same, and provide analyses in terms of processing compression and 'confirmation biases' in the model.
+- Active perception, and more specifically recognition through saccades (or viewpoint selection) is an interesting biologically-inspired approach and seems like an intuitive and promising way to improve efficiency. The problem and its potential applications are well motivated.
+- The perception-driven control formulation is well-detailed and simple to follow.
+- The achieved compression rates are significant and impressive, though additional demonstration of performance on more challenging datasets would have been more compelling
+
+Questions and comments:
+- While an 85% compression rate is significant, 88% accuracy on MNIST seems poor. A plot demonstrating the tradeoff of 
+accuracy for compression (by varying Href or other parameters) would provide a more complete picture of performance. Knowing baseline performance (without active inference) would help put numbers in perspective by providing a performance bound due to modeling choices.
+- What does the distribution of number of saccades required per recognition (for a given threshold) look like over the entire dataset, i.e. how many are dead-easy vs difficult?
+- Steady state assumption: How can this be relaxed to further generalize to non-static scenes?
+- Figure 3 is low resolution and difficult to read.
+
+Post-rebuttal comments:
+
+I have revised my score after considering comments from other reviewers and the revised paper. While the revised version contains more experimental details, the paper in its present form lacks comparisons to other gaze selection and saliency models which are required to put results in context. The paper also contains grammatical errors and is somewhat difficult to understand. Finally, while it proposes an interesting formulation of a well-studied problem, more comparisons and analysis are required to validate the approach.
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper defines a decidable fragment of epistemic planning that can be compiled to fully-observable nondeterministic (FOND) planning, and keeps the same computational complexity. A small case-study is provided to demonstrate the fruitfulness of the compilation.
+
+Generally, the paper provides the necessary context to the user, and it is well contextualised. The theoretical side is sound, and the compilation approach is described at an appropriate level of detail. The example helps to understand part of the details, and gives some useful descriptions of the resulting operators. 
+
+As a suggestion for further improvements, and given the topic of the workshop, it would have been nice to provide some additional insights into the characteristics of the generated models. How can they be made easier to handle by planning engines? what are the most challenging aspects? Are there aspects of the language that are forcing the use of some caveats?
+
+* Minor issues
+- don't -> do not
+- 'As explained in Section, ' -> the AAAI template does not enumerate sections."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This work is based on a private dataset of 332 CT slices (not volumes!) from 140 patients with three different types of annotated liver lesions (cysts, hemangiomas, mets). They compare two multi-task approaches for segmentation and classification and two baseline (ablation, single-task) approaches on this dataset. Additionally, the encoders are either randomly initialised or pretrained on ImageNet (out of domain) or the LiTS dataset (same domain).
+
+The number of 2D slices being used is relatively small, which limits the contribution to some degree, but the setup is solid and the results definitely interesting.
+
+I missed some details on the architectures (numbers of filters, for instance) and possible image preprocessing.  I also wondered if the number of resolution levels is really only 3, which would limit the receptive field (without knowing any details about the employed blocks, it is hard to guess, but it could be around 44Â² pixels theoretical maximum, the ERF being even smaller).
+
+It would also have been interesting to do an ablation study on the SE (squeeze & excitation) blocks, but at least they were used in all four compared approaches, so the comparison is fair.
+
+Overall, I would rate it between 3 and 4, but I do think it is a nice contribution to MIDL, so I voted 4 ('strong' accept)."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The paper discuss how to detect erroneous steps in gradient descent on a non-trusted GPU using a separate slower trusted execution environment,
+by randomly deciding in each step whether to check the values returned by the GPU, as well as using small learning rates and clipping the gradients to ensure all updates are small.
+
+The reason for checking this is based on the assumption that since GPU calculations are out sourced there may be trust issues and attackers with control of the
+values returned by the GPU can alter the final network in subtle ways. 
+
+The paper includes experiments and shows that this approach is faster than just running everything on the trusted execution environment.
+The experiments test an attack approach where the attacker tries to inject some bad samples to get some success of making the network being trained output some particular class on a particular image kind.
+
+
+I have questions about the model. It is explained that the attacker is full control of CPU and GPU etc. but it is also assumed the attacker runs the code on GPU as expected. I would prefer a complete black box model, where the system can input model, batches, parameters etc. to the GPU and get whatever it wants back, i.e. gradients, activations, whatever you desire and given an input the attacker can decide to return whatever you want.
+
+It seems the attacker is seemingly completely oblivious to the actual network, and parameters being used, and only measures his current success rate, and seems very naive. 
+
+Finally, the time is measure compared to a pure based TEE solution which is stated in the paper as completely unsatisfactory, and should instead be compared with training time without using any form of verification as this is the target.
+
+In my opinion this paper is an implementation of a straight forward idea and the theorems for setting the probability parameters  are basic probably computations.
+There is no theoretical contribution in the paper and all the arguments are heuristically based on some intuition about training dynamics.
+
+In short, in my opinion the paper is simply not relevant or strong enough to warrant acceptance at ICLR.
+
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The paper proposes a novel method that modifies implicit constrained optimization (ICO) in a way that the constraint influences the top layer of the network only. The reasoning the authors provide is that the top layer is associated to be responsible for the problem at hand while the bottom layers of a network provide general features. This is definitely an interesting take and simplification which merits further attention."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""In this paper, it is shown that algorithms based on active learning perform better than recent data subset selection algorithms.  Furthermore, an attempt has been made to explain why this is the case. The results look promising, and the text is clear.
+
+Figure 1 and Figure 2: Please provide information over how many seeds you averaged and state the uncertainty intervals. If only one measurement was done, this result may not be significant.
+
+Section 3.3: Please explain why it is a fair and valid comparison if the one algorithm uses 18000 samples, whereas the other only uses 8000. To me, a fair comparison would have been if only a subset of the random initial set is used to keep the amount of training data comparable (i.e. 4000 random and 4000 from the corresponding bin).
+Please repeat this experiment on CIFAR-100 and Imagenet-30 to strengthen your statements.
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The paper studies dynamic graph embedding and proposes the method that first transforms the signal of certain edge's existence to its frequency domain by DFT and then considers it as edge features followed by the simplified vanilla GCN.  
+Pros:
+  1. The idea of using DFT to capture the dynamics is simple yet powerful based on the results of experiments.
+  2. The experiments are able to show the improvements in various tasks.
+Cons:
+  1. The definition of the edge existence signal f is not clear (e.g., Eq. 2). It's not defined how to compute the probability in Eq. 2, so I bet the authors directly use existence as Pr=1 and non-existence as Pr=0. But it's not clearly mentioned in Section 4.1. Similarly, how to compute the conditional probability in Eq. 5 is also not clear. 
+  2. Usually in graph learning (especially GCNs), receptive field denotes the nodes that are used for aggregations. The paper claims the proposed FTSE has a larger receptive field, but didn't give the reason. 
+  3. The proposed method actually remove the dependencies between two timestamps, which are usually very important information to capture the network dynamics. This is one limitation of the paper.
+  4. The notations are inconsistent. In Eq. 6, what is i? In Appendix C, the symbol N is first denoted as the embedding vector dimension, but then used as the number of nodes.
+  5. My major concern is the complexity analysis. Based on Eq. 4, the features in frequency domain are computed for every node pairs (i.e., N^2). That's why when conducting the convolutions in Eq. 6, the complexity is O(N^2), which is a bit high compared to the vanilla GCNs where the adjacency matrix is very sparse (i.e., |E| number of edges). Based on this, I think the complexity analysis in Appendix C is not fair. In the analysis, the authors directly assume dense matrix multiplication (e.g., the multiplication between A and X has O(N^3) time complexity), which is true for the proposed method. However, for the baseline which uses vanilla GCN + RNN, GCN only has O(|E|) time complexity."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""The authors propose a method for brain MRI segmentation quality control (QC). Their method makes use of pix2pix to generate a synthetic MRI from the segmentation result and then compares the synthetic and original MRIs to create an error map. This error map and the original MRI are then input to a CNN that classifies the result as either good or bad.
+
+Strengths:
+-	Using pix2pix to generate synthetic MRI in order to create error maps is interesting and can be used to localize areas of segmentation error, and initial results appear promising.
+-	Training (n=1,600 subjects) and testing (n=~800) set sizes are large, demonstrating robust evaluation.
+
+Weaknesses:
+-	Evaluation of the segmentation error maps is limited to qualitative visual inspection. Some form of qualitative evaluation would be useful.
+-	It is unclear how the training/testing images were scored and under what criteria, which would be useful for understanding the good/bad rating system.
+-	While segmentation QC is a valuable tool, summarizing the entire segmentation quality into a single binary good/bad may not be useful for practical use. It is very subjective to say that something is good/bad, for example Fig 2a and Fig 2c show dramatically different severity of segmentation error. This 'amount' of error may be more valuable than binary good/bad, and let the users decide their tolerance for error.
+
+This is an interesting topic, and I generally like the pix2pix approach to compare against the original imaging as a way to get to a segmentation error map; however, I am less enthusiastic about second half of the proposal, the classification methodology, as I think binary evaluation does not necessarily have straightforward clinical utility. Instead, it seems that quantification of the error map as a measure of quality would be more useful.
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper describes a novel RL approach to optimizing infection disease control policy. The proposed method combines supervised learning with RL and shows strong performance compared to baseline policies. 
+
+Positives: 
++ The branching-process formulation is well-described and intuitive
++ The need for an estimate of the probability of infection is well-motivated 
++ The experiments are extensive and clearly show the strengths (and limitations) of the proposed RLSL framework 
++ Overall, the paper is clear and easy to follow
+
+
+Places for Improvements 
+- The intuition of the representation and state space for both the SL and RL settings could be improved. Currently, it seems as though many representations were tested and this one was eventually chosen. Were they tested on validation data? More information about how these representations are necessary
+- Why was PPO chosen for the RL policy? Were other RL techniques considered? This choice could benefit from more justification
+- How hyperparameters were chosen should be discussed more. Currently, it almost seems as though the architecture and hyperparameters for the 2D CNN were chosen based on the same set in which policies were evaluated, which would be problematic 
+- As mentioned in the paper, calibration of the SL estimates is critical for the threshold-based approach. The authors should consider calibrating these probabilities and evaluating the calibration error in some way, to see if it can improve all methods, especially the threshold-based baseline "" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",0
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""**Summary**. This paper presents a finding that the residual gradient (RG), which takes gradient of both $(Q_{\\theta} - \\bar{y})^2$ and $(\\bar{Q}_{\\theta} - {y})^2$, performs very well for offline RL in D4RL benchmark and compatible to SAC-N though RG uses 50x less compute than SAC-N. 
+
+**Significance and novelty**. 
+This finding is interesting and has a potential for practical significance as it shows that a simple design can have strong empirical performance and computational benefit in offline RL setting. Simple designs with strong performance and computational benefits are desirable characteristics to make offline RL more widely adopted. 
+
+The result is however quite preliminary as the paper merely showed the performance without properly explaining why such a design works, even with empirical study. Thus, it is not clear where the performance gain actually from. An interesting case is the other extreme of RG where $\\eta = \\infty$ (i.e. we remove $(Q_{\\theta} - \\bar{y})^2$ completely from the objective and only compute gradient of $(\\bar{Q}_{\\theta} - {y})^2$ ). The contribution is purely empirical which does not make new algorithmic or modeling contributions. They basically plainly applied Zhang et al. (2019)'s bidirectional target networks with minimum of the critic ensemble. Though it should be fine with that almost plug-in design, to me it's more important to understand why such a design works well in offline RL (e.g. what's going in the method that makes it works that well with much less compute), than just showing the good performance. This work is promising but needs more thorough investigation as to understand the method before being accepted for representation. "" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper evaluates how a deep learning segmentation algorithm performs in CT imaging with synthetically reduced counts (low dose images) across 7 anatomical regions of interest.
+
+The paper evaluates the segmentation performance of an algorithm over increasingly reduced CT imaging counts, but does not provide any methodological innovation.
+
+The paper does not provide any details as to the deep learning segmentation method used. It is also unclear how the algorithm was trained for this task.
+
+Overall, the results are to be expected in that segmentation performance declines as image quality degrades. Presuming this algorithm was trained on clean CT imaging (full count), it is unsurprising that segmentation results generalize poorly on noisy CT test data.
+
+Enthusiasm for the results is also limited due to testing on n=5 images.
+
+For future work, one possibility might be to train on simulated low-dose imaging and see how well the segmentation performs.
+"" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1
+"<s>[INST] Some scientific manuscript reviews can be unhelpful, using strong language and negativity without offering constructive feedback. This can harm authors' motivation and well-being. However, positive and constructive reviews contribute to a supportive academic environment, encouraging authors and improving the overall discourse. Consider the following paper review:
+
+
+Review text: ""This paper proposed a new distributed training method for GNNs. Specifically, unlike traditional distributed training methods for CNNs where data points are independent, nodes in a graph are dependent on each other. Thus, this dependence incurs communication between different workers in the distributed training of GNNs. This paper aims to reduce the communication cost in this procedure. Here, this paper proposed to sample more neighbor nodes within the same worker while reducing the sampling probability for the neighbor nodes on other workers. It also provides some theoretical analysis and conducts the experiments to verify the proposed method. 
+
+1. The idea is simple. It is just a trad-off between intra-worker sampling and inter-worker sampling. In fact, it does not address the real challenge in distributed training of GNNs. Even though sampling more intra-worker neighbor nodes can reduce the communication cost, it will impair the prediction performance. A good solution should reduce communication costs and try to make the prediction performance as good as possible. However, this method only focuses on the former one. 
+
+2. In the proof of Theorem 1, this paper assumes there exists a constant $D_1$, and further claims that $D$ is small. However, no evidence is provided to verify $D$ is small. Thus, the claim in Theorem 1 does not hold. Moreover, without any knowledge regarding $D$, the bound for $s$ is useless. 
+
+3. Regarding experiments, an important baseline is missed. Specifically, the method only using intra-worker neighbor nodes should be used. Otherwise, the current experimental results cannot support the efficacy of the proposed method."" 
+
+Reviews are '0' if they are positive, encouraging, offer constructive feedback, or have a uplifting tone. Reviews are '1' if they are not discouraging but also not encouraging. Reviews are '2' if they are discouraging, toxic, or excessively negative with no constructive feedback. 
+Please classify this review as either '0', '1', or '2'. Choose the category that fits best. Only output '0', '1', or '2' with no additional explanation. [/INST]",1

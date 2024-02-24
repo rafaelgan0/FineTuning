@@ -6,6 +6,8 @@ import torch.nn as nn
 from parallelformers import parallelize
 import time
 
+print("Cuda Availability: ", torch.cuda.is_available())
+
 class ModelLoader:
     def __init__(self, model_id, load_8bit=False, load_16bit=False):
         self.model_id = model_id
@@ -100,7 +102,7 @@ def evaluate_prompt(config, model_loader, input_file, output_file):
 num_gpus = torch.cuda.device_count()
 print(f"Number of GPUs: {num_gpus}")
 
-config = Config(prompts.mistral_p1, "stabilityai/stablelm-zephyr-3b", load_8bit=True)
+config = Config(prompts.mistral_p1, "stabilityai/stablelm-zephyr-3b")
 model_loader = ModelLoader(config.model_name, load_8bit=config.load_8bit, load_16bit=config.load_16bit)
 model_loader.load_model()
 print(model_loader.model.memory_allocated())
