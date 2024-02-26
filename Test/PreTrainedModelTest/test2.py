@@ -1,16 +1,15 @@
-# from transformers import AutoModelForCausalLM, AutoTokenizer
-# device = "cuda" # the device to load the model onto
+# pip install accelerate
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
-# model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-v0.1")
-# tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-v0.1")
+tokenizer = AutoTokenizer.from_pretrained("stabilityai/stablelm-zephyr-3b")
+model = AutoModelForCausalLM.from_pretrained("stabilityai/stablelm-zephyr-3b", device_map="auto")
 
-# prompt = "My favourite condiment is"
+input_text = "Write me a poem about Machine Learning."
+input_ids = tokenizer(input_text, return_tensors="pt").to("cuda")
 
-# model_inputs = tokenizer([prompt], return_tensors="pt")
+outputs = model.generate(**input_ids)
+print(tokenizer.decode(outputs[0]))
 
-# generated_ids = model.generate(**model_inputs, max_new_tokens=100, do_sample=True)
-# print(tokenizer.batch_decode(generated_ids)[0])
-
-import torch
-print("Cuda Availability: ", torch.cuda.is_available())
-torch.zeros(1).cuda()
+# import torch
+# print("Cuda Availability: ", torch.cuda.is_available())
+# torch.zeros(1).cuda()
